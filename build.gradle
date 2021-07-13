@@ -1,0 +1,26 @@
+plugins {
+	id 'java'
+	id 'eclipse'
+	id 'com.github.johnrengelman.shadow' version '5.0.0'
+}
+
+group 'cc.sukazyo'
+version '0.1.0'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+shadowJar {
+	archiveBaseName.set("pixelva")
+	archiveVersion.set(version)
+}

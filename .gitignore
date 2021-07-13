@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.gradle/
+.settings/
+/src/test/*
+
+#build
+/build/
+/bin/
+.project
+
+# debug dir
+/run/
