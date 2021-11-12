@@ -1,26 +1,60 @@
 plugins {
 	id 'java'
-	id 'eclipse'
-	id 'com.github.johnrengelman.shadow' version '5.0.0'
+	id 'maven-publish'
 }
 
 group 'cc.sukazyo'
-version '0.1.0'
+version VERSION
+project.ext.artifactId = project.name
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+	testCompileOnly "org.junit.jupiter:junit-jupiter-api:${versionJUnit}"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versionJUnit}"
+}
+
+java {
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+	options.encoding = 'UTF-8'
+	options.docEncoding = 'UTF-8'
+	options.charSet = 'UTF-8'
 }
 
 test {
 	useJUnitPlatform()
 }
 
-shadowJar {
-	archiveBaseName.set("pixelva")
-	archiveVersion.set(version)
+publishing {
+	repositories{
+		maven {
+			name 'builds'
+			url = "file://" + new File("./build/publishing").getAbsolutePath()
+		}
+		maven {
+			name '-ws-'
+			url publishMvnRepoUrl
+			credentials {
+				username publishMvnRepoUsername
+				password publishMvnRepoPassword
+			}
+		}
+	}
+	publications {
+		main (MavenPublication) {
+			from components.java
+			groupId = project.group
+			artifactId = project.ext.artifactId
+			version = project.version
+		}
+	}
 }

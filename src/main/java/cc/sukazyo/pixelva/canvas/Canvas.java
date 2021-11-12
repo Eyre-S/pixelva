@@ -3,17 +3,26 @@ package cc.sukazyo.pixelva.canvas;
 import cc.sukazyo.pixelva.utils.RGBA;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Canvas {
 	
 	private int width;
 	private int height;
-	private final List<ILayer> layerList = new ArrayList<>();
+	private final List<Layer> layerList = new ArrayList<>();
+	
+	public static class Layer {
+		public int x;
+		public int y;
+		public final IElement object;
+		public Layer (int offsetX, int offsetY, IElement object) {
+			x = offsetX; y = offsetY;
+			this.object = object;
+		}
+	}
 	
 	public Canvas (int width, int height) {
-		resize(width, height, 0, 0);
+		resize(width, height);
 	}
 	
 	public int getWidth () {
@@ -24,21 +33,23 @@ public class Canvas {
 		return height;
 	}
 	
-	public List<ILayer> getLayers () {
-		return layerList;
-	}
-	
-	public List<ILayer> getLayerList () {
-		return layerList;
-	}
-	
-	public void addLayer (ILayer... layer) {
-		layerList.addAll(Arrays.asList(layer));
-	}
-	
-	public void resize (int width, int height, int originX, int originY) {
+	public void resize (int width, int height) {
 		this.width = width;
 		this.height = height;
+	}
+	
+	public List<Layer> getLayers () {
+		return layerList;
+	}
+	
+	public Layer addLayer (IElement object) {
+		return addLayer(object, 0, 0);
+	}
+	
+	public Layer addLayer (IElement object, int offsetX, int offsetY) {
+		Layer layer = new Layer(offsetX, offsetY, object);
+		layerList.add(layer);
+		return layer;
 	}
 	
 	public RGBA[][] render () {
@@ -47,10 +58,16 @@ public class Canvas {
 		RGBA curr = RGBA.EMPTY;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				for (ILayer layer : layerList) {
-					tmp = layer.getRGBA(x, y);
-					if (tmp == null) continue;
-					curr = curr.blendNext(tmp);
+				for (Layer layer : layerList) {
+					if (!(
+						x < layer.x || y < layer.y ||
+						x >= layer.x + layer.object.getWidth() ||
+						y >= layer.y + layer.object.getHeight()
+					)) {
+						tmp = layer.object.getRGBA(x - layer.x, y - layer.y);
+						if (tmp == null) continue;
+						curr = curr.blendNext(tmp);
+					}
 				}
 				result[x][y] = curr;
 				curr = RGBA.EMPTY;
