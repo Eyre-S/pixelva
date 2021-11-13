@@ -1,2 +1,6 @@
 rootProject.name = 'pixelva'
 
+include 'colorpane', 'canvas'
+findProject(':colorpane')?.name = 'pixelva-colorpane'
+findProject(':canvas')?.name = 'pixelva-canvas'
+

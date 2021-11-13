@@ -1,60 +1,75 @@
 plugins {
 	id 'java'
+	id 'java-library'
 	id 'maven-publish'
 }
 
-group 'cc.sukazyo'
-version VERSION
-project.ext.artifactId = project.name
-
-repositories {
-	mavenCentral()
+allprojects {
+	
+	apply plugin: 'java'
+	apply plugin: 'java-library'
+	
+	group 'cc.sukazyo'
+	version VERSION
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	dependencies {
+		testCompileOnly "org.junit.jupiter:junit-jupiter-api:${versionJUnit}"
+		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versionJUnit}"
+	}
+	
+	java {
+		withSourcesJar()
+	}
+	
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+	}
+	
+	tasks.withType(Javadoc) {
+		options.encoding = 'UTF-8'
+		options.docEncoding = 'UTF-8'
+		options.charSet = 'UTF-8'
+	}
+	
+	test {
+		useJUnitPlatform()
+	}
+	
 }
 
-dependencies {
-	testCompileOnly "org.junit.jupiter:junit-jupiter-api:${versionJUnit}"
-	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versionJUnit}"
-}
-
-java {
-	withSourcesJar()
-}
-
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
-}
-
-tasks.withType(Javadoc) {
-	options.encoding = 'UTF-8'
-	options.docEncoding = 'UTF-8'
-	options.charSet = 'UTF-8'
-}
-
-test {
-	useJUnitPlatform()
-}
-
-publishing {
-	repositories{
-		maven {
-			name 'builds'
-			url = "file://" + new File("./build/publishing").getAbsolutePath()
+subprojects {
+	
+	apply plugin: 'maven-publish'
+	
+	project.ext.artifactId = project.name
+	
+	publishing {
+		repositories {
+			maven {
+				name 'builds'
+				url = "file://" + new File("./build/publishing").getAbsolutePath()
+			}
+			maven {
+				name '-ws-'
+				url publishMvnRepoUrl
+				credentials {
+					username publishMvnRepoUsername
+					password publishMvnRepoPassword
+				}
+			}
 		}
-		maven {
-			name '-ws-'
-			url publishMvnRepoUrl
-			credentials {
-				username publishMvnRepoUsername
-				password publishMvnRepoPassword
+		publications {
+			main (MavenPublication) {
+				from components.java
+				groupId = project.group
+				artifactId = project.ext.artifactId
+				version = project.version
 			}
 		}
 	}
-	publications {
-		main (MavenPublication) {
-			from components.java
-			groupId = project.group
-			artifactId = project.ext.artifactId
-			version = project.version
-		}
-	}
+	
 }

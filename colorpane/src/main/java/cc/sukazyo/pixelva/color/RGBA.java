@@ -1,4 +1,4 @@
-package cc.sukazyo.pixelva.utils;
+package cc.sukazyo.pixelva.color;
 
 public class RGBA {
 	

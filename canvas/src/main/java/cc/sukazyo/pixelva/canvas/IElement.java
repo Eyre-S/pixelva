@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.canvas;
 
-import cc.sukazyo.pixelva.utils.RGBA;
+import cc.sukazyo.pixelva.color.RGBA;
 
 public interface IElement {
 	
