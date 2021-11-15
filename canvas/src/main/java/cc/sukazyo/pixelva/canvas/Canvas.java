@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.canvas;
 
-import cc.sukazyo.pixelva.color.RGBA;
+import cc.sukazyo.pixelva.color.base.RGBA;
 
 import java.util.ArrayList;
 import java.util.List;

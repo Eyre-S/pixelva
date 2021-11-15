@@ -1,7 +1,7 @@
 package cc.sukazyo.pixelva.output;
 
 import cc.sukazyo.pixelva.canvas.Canvas;
-import cc.sukazyo.pixelva.color.RGBA;
+import cc.sukazyo.pixelva.color.base.RGBA;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

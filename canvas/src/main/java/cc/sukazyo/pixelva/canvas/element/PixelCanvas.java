@@ -1,7 +1,7 @@
 package cc.sukazyo.pixelva.canvas.element;
 
 import cc.sukazyo.pixelva.canvas.IElement;
-import cc.sukazyo.pixelva.color.RGBA;
+import cc.sukazyo.pixelva.color.base.RGBA;
 
 import java.util.Arrays;
 
