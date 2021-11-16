@@ -15,7 +15,7 @@ public class ColorPaletteWeb {
 	public static final RGBA BLUE =    ColorPaletteBase.BLUE;
 	public static final RGBA FUCHSIA = ColorPaletteBase.FUCHSIA;
 	public static final RGBA YELLOW =  ColorPaletteBase.YELLOW;
-	public static final RGBA AQUA =    ColorPaletteBase.AQUA;
+	public static final RGBA CYAN =    ColorPaletteBase.AQUA;
 	
 	public static final RGBA MAROON =  ColorPaletteBase.MAROON;
 	public static final RGBA GREEN =   ColorPaletteBase.GREEN;
@@ -39,15 +39,22 @@ public class ColorPaletteWeb {
 	//...todo
 	
 	//yellows
+	// lic static final RGBA YELLOW
 	public static final RGBA LIGHTYELLOW =          RGBA.asBinRGB(0xffffe0);
 	public static final RGBA LEMONCHIFFON =         RGBA.asBinRGB(0xfffacd);
 	public static final RGBA LIGHTGOLDENRODYELLOW = RGBA.asBinRGB(0xfafad2);
 	public static final RGBA PAPAYAWHIP =           RGBA.asBinRGB(0xffefd5);
-	//...todo
+	public static final RGBA MOCCASIN =             RGBA.asBinRGB(0xffe4b5);
+	public static final RGBA PEACHPUFF =            RGBA.asBinRGB(0xffdab9);
+	public static final RGBA PALEGOLDENROD =        RGBA.asBinRGB(0xeee8aa);
+	public static final RGBA KHAKI =                RGBA.asBinRGB(0xf0e68c);
+	public static final RGBA DARKKHAKI =            RGBA.asBinRGB(0xbdb76b);
+	public static final RGBA GOLD =                 RGBA.asBinRGB(0xffd700);
 	
 	//...todo
 	
 	//whites
+	// lic static final RGBA WHITE
 	public static final RGBA SNOW =                 RGBA.asBinRGB(0xfffafa);
 	public static final RGBA HONEYDEW =             RGBA.asBinRGB(0xf0faf0);
 	public static final RGBA MINTCREAM =            RGBA.asBinRGB(0xf5fffa);

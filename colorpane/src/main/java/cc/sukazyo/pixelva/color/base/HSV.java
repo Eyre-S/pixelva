@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.color.base;
 
-public class HSV implements IRGBACompatible, IHueColor {
+public class HSV implements IHueColor, IRGBACompatible, IHSLCompatible {
 	
 	public final float hue;
 	public final float saturation;
@@ -14,16 +14,6 @@ public class HSV implements IRGBACompatible, IHueColor {
 		this.hue = hue;
 		this.saturation = saturation;
 		this.value = value;
-	}
-	
-	public static HSL fromRGB (RGBA rgba) {
-		final double max = Math.max(Math.max(rgba.red, rgba.green), rgba.blue);
-		final double min = Math.min(Math.min(rgba.red, rgba.green), rgba.blue);
-		return new HSL(
-				(float)IHueColor.calcRGBToHue(rgba.red, rgba.green, rgba.blue, max, min),
-				(float)((max==0)?0:(1.0-(min/max))),
-				(float)max
-		);
 	}
 	
 	@Override
@@ -41,6 +31,17 @@ public class HSV implements IRGBACompatible, IHueColor {
 			case 4: return new RGBA((int)t, (int)p, (int)value);
 			default: return new RGBA((int)value, (int)p, (int)q);
 		}
+	}
+	
+	@Override
+	public HSL toHSL () {
+		double lightness = value - value*saturation/2;
+		double m = Math.min(lightness, 1-lightness);
+		return new HSL(
+				hue,
+				(float)(m==0 ? (value-lightness)/m : 0),
+				(float)lightness
+		);
 	}
 	
 	public float hue () { return hue; }

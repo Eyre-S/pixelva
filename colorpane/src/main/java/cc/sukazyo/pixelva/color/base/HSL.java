@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.color.base;
 
-public class HSL implements IRGBACompatible, IHueColor {
+public class HSL implements IHueColor, IRGBACompatible, IHSVCompatible {
 	
 	public final float hue;
 	public final float saturation;
@@ -16,17 +16,6 @@ public class HSL implements IRGBACompatible, IHueColor {
 		this.lightness = lightness;
 	}
 	
-	public static HSL fromRGB (RGBA rgba) {
-		final double max = Math.max(Math.max(rgba.red, rgba.green), rgba.blue);
-		final double min = Math.min(Math.min(rgba.red, rgba.green), rgba.blue);
-		final double lightness = (max + min) / 2.0;
-		return new HSL(
-				(float)IHueColor.calcRGBToHue(rgba.red, rgba.green, rgba.blue, max, min),
-				(float)((max==min)?0:(lightness<=0.5?((max-min)/(max+min)):((max-min)/(2-(max+min))))),
-				(float)lightness
-		);
-	}
-	
 	@Override
 	public RGBA toRGBA () {
 		if (saturation == 0) return new RGBA(lightness, lightness, lightness);
@@ -36,6 +25,16 @@ public class HSL implements IRGBACompatible, IHueColor {
 				(float)IHueColor.calcHueToRGB(hue + (1.0 / 3.0), p, q),
 				(float)IHueColor.calcHueToRGB(hue, p, q),
 				(float)IHueColor.calcHueToRGB(hue - (1.0 / 3.0), p, q)
+		);
+	}
+	
+	@Override
+	public HSV toHSV () {
+		double value = saturation * Math.min(lightness, 1-lightness) + lightness;
+		return new HSV(
+				hue,
+				(float)(value==0 ? 2 - 2*lightness/value : 0),
+				(float)value
 		);
 	}
 	

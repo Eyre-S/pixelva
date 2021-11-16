@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.color.base;
 
-public class RGBA {
+public class RGBA implements IHSLCompatible, IHSVCompatible {
 	
 	public static final RGBA EMPTY = new RGBA(0, 0, 0, 0);
 	
@@ -73,6 +73,29 @@ public class RGBA {
 				(int)((binary&0x0000ff00L)>>8),
 				(int)(binary&0x000000ffL),
 				1f
+		);
+	}
+	
+	@Override
+	public HSV toHSV () {
+		final double max = Math.max(Math.max(this.red, this.green), this.blue);
+		final double min = Math.min(Math.min(this.red, this.green), this.blue);
+		return new HSV(
+				(float)IHueColor.calcRGBToHue(this.red, this.green, this.blue, max, min),
+				(float)((max==0)?0:(1.0-(min/max))),
+				(float)max
+		);
+	}
+	
+	@Override
+	public HSL toHSL () {
+		final double max = Math.max(Math.max(this.red, this.green), this.blue);
+		final double min = Math.min(Math.min(this.red, this.green), this.blue);
+		final double lightness = (max + min) / 2.0;
+		return new HSL(
+				(float)IHueColor.calcRGBToHue(this.red, this.green, this.blue, max, min),
+				(float)((max==min)?0:(lightness<=0.5?((max-min)/(max+min)):((max-min)/(2-(max+min))))),
+				(float)lightness
 		);
 	}
 	
