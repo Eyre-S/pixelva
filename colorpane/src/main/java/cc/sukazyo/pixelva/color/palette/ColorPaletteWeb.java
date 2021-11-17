@@ -4,6 +4,12 @@ import cc.sukazyo.pixelva.color.base.RGBA;
 
 import static cc.sukazyo.pixelva.color.palette.Unstable.Type.FILED_MOVE;
 
+/**
+ * Web 预定义颜色<br>
+ * 包含所有 css 版本颜色<br>
+ * <br>
+ * 颜色名称与颜色值不会变动，但保留后期整理时添加嵌套类的可能
+ */
 @Unstable(FILED_MOVE)
 @SuppressWarnings("unused")
 public class ColorPaletteWeb {

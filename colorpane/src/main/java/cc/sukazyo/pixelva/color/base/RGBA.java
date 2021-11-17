@@ -42,7 +42,7 @@ public class RGBA implements IHSLCompatible, IHSVCompatible {
 		) throw new IllegalArgumentException("RGBa with int can only contains number within 0 and 255");
 		if (
 				alpha > 1f || alpha < 0f
-		) throw new IllegalArgumentException("RGBA with float can only contains number within 0f and 1f");
+		) throw new IllegalArgumentException("rgbA with float can only contains number within 0f and 1f");
 		this.red = red / 255f;
 		this.green = green / 255f;
 		this.blue = blue / 255f;
@@ -132,7 +132,7 @@ public class RGBA implements IHSLCompatible, IHSVCompatible {
 	}
 	
 	public String toStringStd () {
-		return String.format("rgba(%d, %d, %d, %.4f)", red8(), green8(), blue8(), alpha);
+		return String.format("rgba(%d, %d, %d, %.2f)", red8(), green8(), blue8(), alpha);
 	}
 	
 	public RGBA blendNext (RGBA next) {

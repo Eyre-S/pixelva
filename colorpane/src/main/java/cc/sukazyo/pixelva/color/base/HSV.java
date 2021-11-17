@@ -10,7 +10,7 @@ public class HSV implements IHueColor, IRGBACompatible, IHSLCompatible {
 		if (
 				hue > 1f || saturation > 1f || value > 1f ||
 				hue < 0f || saturation < 0f || value < 0f
-		) throw new IllegalArgumentException("HSL with float can only contains number within 0f and 1f");
+		) throw new IllegalArgumentException("HSV with float can only contains number within 0f and 1f");
 		this.hue = hue;
 		this.saturation = saturation;
 		this.value = value;
@@ -57,7 +57,7 @@ public class HSV implements IHueColor, IRGBACompatible, IHSLCompatible {
 	}
 	
 	public String toStringStd () {
-		return String.format("hsv(%.1f, %.1f%%, %.1f%%)", hueD(), saturation * 100f, value * 100f);
+		return String.format("hsv(%.0f, %.0f%%, %.0f%%)", hueD(), saturation * 100f, value * 100f);
 	}
 
 }

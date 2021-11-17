@@ -4,6 +4,10 @@ import cc.sukazyo.pixelva.color.base.RGBA;
 
 import static cc.sukazyo.pixelva.color.palette.Unstable.Type.DELETE;
 
+/**
+ * 基础色表<br>
+ * 目前基本是由 Web 16 基础色填写，保留任何变动可能
+ */
 @Unstable(DELETE)
 @SuppressWarnings("unused")
 public class ColorPaletteBase {
@@ -12,7 +16,7 @@ public class ColorPaletteBase {
 	@Unstable public static final RGBA LIME =    RGBA.asBinRGB(0x00ff00);
 	          public static final RGBA BLUE =    RGBA.asBinRGB(0x0000ff);
 	@Unstable public static final RGBA FUCHSIA = RGBA.asBinRGB(0xff00ff);
-	          public static final RGBA YELLOW =  RGBA.asBinRGB(0xffff00);
+	@Unstable public static final RGBA YELLOW =  RGBA.asBinRGB(0xffff00);
 	@Unstable public static final RGBA AQUA =    RGBA.asBinRGB(0x00ffff);
 	
 	@Unstable public static final RGBA MAROON =  RGBA.asBinRGB(0x800000);

@@ -51,7 +51,7 @@ public class HSL implements IHueColor, IRGBACompatible, IHSVCompatible {
 	}
 	
 	public String toStringStd () {
-		return String.format("hsl(%.1f, %.1f%%, %.1f%%)", hueD(), saturation * 100f, lightness * 100f);
+		return String.format("hsl(%.0f, %.0f%%, %.0f%%)", hueD(), saturation * 100f, lightness * 100f);
 	}
 	
 }
