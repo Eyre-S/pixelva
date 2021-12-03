@@ -1,6 +1,6 @@
 package cc.sukazyo.pixelva.color.base;
 
-public class RGBA implements IHSLCompatible, IHSVCompatible {
+public class RGBA implements IHSLCompatible, IHSVCompatible, ICMYKCompatible {
 	
 	public static final RGBA EMPTY = new RGBA(0, 0, 0, 0);
 	
@@ -96,6 +96,19 @@ public class RGBA implements IHSLCompatible, IHSVCompatible {
 				(float)IHueColor.calcRGBToHue(this.red, this.green, this.blue, max, min),
 				(float)((max==min)?0:(lightness<=0.5?((max-min)/(max+min)):((max-min)/(2-(max+min))))),
 				(float)lightness
+		);
+	}
+	
+	@Override
+	public CMYK toCMYK () {
+		double black = Math.min(Math.min(red, blue), green);
+		if (black == 1) return new CMYK(0, 0, 0, 1.0f);
+		double w = 1.0 - black;
+		return new CMYK(
+				(float)((1-red-black) / w),
+				(float)((1-green-black) / w),
+				(float)((1-blue-black) / w),
+				(float)black
 		);
 	}
 	
